@@ -96,7 +96,8 @@ export async function getBanners(): Promise<Banner[]> {
       title: b.typeTitle || '精选推荐',
       subtitle: b.bannerBizType || '点击查看',
       gradient: gradients[i % gradients.length],
-      tag: '编辑推荐'
+      tag: '编辑推荐',
+      image: fixPicUrl(b.imageUrl || b.picUrl || '')
     }))
   } catch (e) {
     console.error('[online] getBanners failed:', e)

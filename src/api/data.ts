@@ -24,6 +24,7 @@ export interface Banner {
   subtitle: string
   gradient: string
   tag: string
+  image?: string
 }
 
 const audioBase = 'https://www.soundhelix.com/examples/mp3'

@@ -14,7 +14,7 @@
 
       <swiper class="banner" circular autoplay interval="4000" duration="500" v-if="!loading && banners.length">
         <swiper-item v-for="banner in banners" :key="banner.id">
-          <view class="banner-item" :style="{ background: banner.gradient }">
+          <view class="banner-item" :style="banner.image ? { backgroundImage: `linear-gradient(135deg, rgba(0,0,0,0.5), rgba(0,0,0,0.3)), url(${banner.image})`, backgroundSize: 'cover', backgroundPosition: 'center' } : { background: banner.gradient }">
             <view class="banner-text">
               <text class="banner-tag">{{ banner.tag }}</text>
               <text class="banner-title">{{ banner.title }}</text>
