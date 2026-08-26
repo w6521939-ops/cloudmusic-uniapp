@@ -1,0 +1,49 @@
+{
+  "name": "云音",
+  "appid": "",
+  "description": "云音 - 基于 UniApp + Vue 3 + TypeScript 的跨端音乐播放器",
+  "versionName": "1.0.0",
+  "versionCode": "100",
+  "transformPx": false,
+  "app-plus": {
+    "usingComponents": true,
+    "nvueStyleCompiler": "uni-app",
+    "compilerVersion": 3,
+    "splashscreen": {
+      "alwaysShowBeforeRender": true,
+      "waiting": true,
+      "autoclose": true,
+      "delay": 0
+    },
+    "modules": {},
+    "distribute": {
+      "android": {
+        "permissions": []
+      },
+      "ios": {},
+      "sdkConfigs": {}
+    }
+  },
+  "h5": {
+    "title": "云音 · CloudMusic",
+    "router": {
+      "mode": "hash",
+      "base": "./"
+    },
+    "devServer": {
+      "port": 5174,
+      "https": false
+    }
+  },
+  "mp-weixin": {
+    "appid": "",
+    "setting": {
+      "urlCheck": false,
+      "es6": true,
+      "postcss": true,
+      "minified": true
+    },
+    "usingComponents": true
+  },
+  "vueVersion": "3"
+}

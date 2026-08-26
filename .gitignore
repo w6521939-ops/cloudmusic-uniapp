@@ -1,0 +1,7 @@
+node_modules/
+dist/
+unpackage/
+.vscode/
+*.log
+.DS_Store
+deploy-github-pages.ps1
