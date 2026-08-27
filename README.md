@@ -10,6 +10,44 @@
 - **Vite 5** - 构建工具
 - **SCSS** - 样式预处理
 
+## 跨端构建
+
+云音支持 H5、Android、HarmonyOS 三端部署。
+
+### H5 在线预览
+
+- GitHub Pages: https://w6521939-ops.github.io/cloudmusic-uniapp/
+
+### Android 原生应用
+
+通过 WebView 外壳加载 H5 资源构建 APK。
+
+```bash
+# 构建 H5 资源
+npm run build:h5
+
+# 构建 APK
+cd native/android
+./build-apk.ps1
+```
+
+产物：`native/android/bin/cloudmusic-signed.apk`
+
+### HarmonyOS 原生应用
+
+通过 Web 组件加载 H5 资源构建 HAP，需 DevEco Studio 6.1.1+。
+
+```bash
+# 构建 H5 资源
+npm run build:h5
+
+# 构建 HAP
+cd native/harmony
+./build-hap.ps1
+```
+
+产物：`native/harmony/entry/build/default/outputs/default/entry-default-unsigned.hap`
+
 ## 核心功能
 
 - **全局音频播放** - 基于 `uni.getBackgroundAudioManager()` 实现跨页面无缝续播

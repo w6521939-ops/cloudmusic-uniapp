@@ -1,0 +1,21 @@
+# Build outputs
+android/bin/
+android/obj/
+android/gen/
+harmony/entry/build/
+harmony/.hvigor/
+harmony/node_modules/
+harmony/hvigor/node_modules/
+harmony/hvigor/package.json
+harmony/hvigor/package-lock.json
+
+# Keystore
+android/debug.keystore
+
+# IDE
+.idea/
+*.iml
+
+# OS
+.DS_Store
+Thumbs.db

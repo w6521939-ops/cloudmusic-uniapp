@@ -1,0 +1,16 @@
+{
+  "string": [
+    {
+      "name": "module_desc",
+      "value": "云音音乐播放器"
+    },
+    {
+      "name": "EntryAbility_desc",
+      "value": "云音"
+    },
+    {
+      "name": "EntryAbility_label",
+      "value": "云音"
+    }
+  ]
+}
