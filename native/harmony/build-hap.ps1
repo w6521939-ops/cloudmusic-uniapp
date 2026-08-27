@@ -10,10 +10,10 @@ $RAWFILE_DIR = "$PROJECT\entry\src\main\resources\rawfile\www"
 Write-Output "=== HarmonyOS HAP Build Script ==="
 Write-Output "Project: $PROJECT"
 
-# Step 1: Build H5 resources
-Write-Output "`n=== Step 1: Build H5 resources ==="
+# Step 1: Build H5 resources (native mode with relative base path)
+Write-Output "`n=== Step 1: Build H5 resources (native) ==="
 Set-Location "D:\CloudMusic-uniapp"
-npm run build:h5 2>&1 | Write-Output
+npm run build:native 2>&1 | Write-Output
 if ($LASTEXITCODE -ne 0) { Write-Error "H5 build failed"; exit 1 }
 
 # Step 2: Copy H5 to rawfile

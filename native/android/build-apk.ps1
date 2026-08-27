@@ -20,8 +20,25 @@ $ASSETS = "$PROJECT\assets"
 $OBJ = "$PROJECT\obj"
 $BIN = "$PROJECT\bin"
 $GEN = "$PROJECT\gen"
+$H5_SOURCE = "D:\CloudMusic-uniapp\dist\build\h5"
+$ASSETS_WWW = "$PROJECT\assets\www"
 
-# Clean
+# Step 0: Build H5 resources (native mode with relative base path)
+Write-Output "=== Step 0: Build H5 resources (native) ==="
+Set-Location "D:\CloudMusic-uniapp"
+npm run build:native 2>&1 | Write-Output
+if ($LASTEXITCODE -ne 0) { Write-Error "H5 build failed"; exit 1 }
+
+# Copy H5 to assets/www
+Write-Output "=== Copy H5 to assets ==="
+if (Test-Path $ASSETS_WWW) {
+    Remove-Item $ASSETS_WWW -Recurse -Force
+}
+New-Item -Path $ASSETS_WWW -ItemType Directory -Force | Out-Null
+Copy-Item "$H5_SOURCE\*" $ASSETS_WWW -Recurse -Force
+Write-Output "H5 resources copied to assets"
+
+# Clean build dirs
 Remove-Item -Path $OBJ, $BIN, $GEN -Recurse -Force -ErrorAction SilentlyContinue
 New-Item -Path $OBJ, $BIN, $GEN -ItemType Directory -Force | Out-Null
 
