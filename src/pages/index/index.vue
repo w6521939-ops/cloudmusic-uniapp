@@ -12,17 +12,23 @@
         <text class="loading-text">加载中...</text>
       </view>
 
-      <swiper class="banner" circular autoplay interval="4000" duration="500" v-if="!loading && banners.length">
-        <swiper-item v-for="banner in banners" :key="banner.id">
-          <view class="banner-item" :style="banner.image ? { backgroundImage: `linear-gradient(135deg, rgba(0,0,0,0.5), rgba(0,0,0,0.3)), url(${banner.image})`, backgroundSize: 'cover', backgroundPosition: 'center' } : { background: banner.gradient }">
-            <view class="banner-text">
-              <text class="banner-tag">{{ banner.tag }}</text>
+      <swiper class="banner" circular autoplay interval="4000" duration="600" v-if="!loading && banners.length" :indicator-dots="false" @change="onBannerChange">
+        <swiper-item v-for="(banner, idx) in banners" :key="banner.id">
+          <view class="banner-item" :style="banner.image ? { backgroundImage: `url(${banner.image})`, backgroundSize: 'cover', backgroundPosition: 'center' } : { background: banner.gradient }">
+            <view class="banner-overlay" :style="{ background: banner.image ? 'linear-gradient(0deg, rgba(0,0,0,0.75) 0%, rgba(0,0,0,0.3) 50%, rgba(0,0,0,0) 100%)' : 'linear-gradient(0deg, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0) 60%)' }"></view>
+            <view class="banner-content">
+              <view class="banner-tag" :style="{ background: idx === currentBanner ? 'rgba(30, 200, 168, 0.9)' : 'rgba(255,255,255,0.25)' }">
+                <text>{{ banner.tag }}</text>
+              </view>
               <text class="banner-title">{{ banner.title }}</text>
               <text class="banner-subtitle">{{ banner.subtitle }}</text>
             </view>
           </view>
         </swiper-item>
       </swiper>
+      <view class="banner-dots" v-if="!loading && banners.length > 1">
+        <view v-for="(b, i) in banners" :key="'dot-'+i" class="banner-dot" :class="{ active: i === currentBanner }"></view>
+      </view>
 
       <view class="shortcuts">
         <view class="shortcut-item" v-for="sc in shortcuts" :key="sc.label" @tap="sc.action">
@@ -87,6 +93,7 @@ const banners = ref<Banner[]>([])
 const playlists = ref<Playlist[]>([])
 const hotSongs = ref<Song[]>([])
 const loading = ref(true)
+const currentBanner = ref(0)
 
 const shortcuts = [
   { label: '每日推荐', emoji: '📅', color: 'linear-gradient(135deg, #667eea, #764ba2)', action: () => playAll() },
@@ -125,6 +132,10 @@ async function openPlaylist(pl: Playlist) {
 
 function goSearch() {
   uni.switchTab({ url: '/pages/search/search' })
+}
+
+function onBannerChange(e: any) {
+  currentBanner.value = e.detail.current
 }
 
 onMounted(async () => {
@@ -192,39 +203,82 @@ onPullDownRefresh(async () => {
   bottom: 0;
 }
 .banner {
-  height: 280rpx;
+  height: 360rpx;
   margin: 16rpx 32rpx;
   border-radius: 24rpx;
   overflow: hidden;
+  box-shadow: 0 8rpx 32rpx rgba(0, 0, 0, 0.12);
 }
 .banner-item {
   height: 100%;
-  display: flex;
-  align-items: center;
-  padding: 0 40rpx;
+  position: relative;
+  border-radius: 24rpx;
+  overflow: hidden;
+}
+.banner-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
   border-radius: 24rpx;
 }
-.banner-text {
+.banner-content {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 32rpx 40rpx;
   display: flex;
   flex-direction: column;
-  gap: 8rpx;
+  gap: 12rpx;
+  z-index: 2;
 }
 .banner-tag {
-  font-size: 22rpx;
-  color: rgba(255, 255, 255, 0.8);
-  background: rgba(255, 255, 255, 0.2);
-  padding: 4rpx 16rpx;
-  border-radius: 8rpx;
   align-self: flex-start;
+  padding: 6rpx 20rpx;
+  border-radius: 100rpx;
+  margin-bottom: 4rpx;
+}
+.banner-tag text {
+  font-size: 20rpx;
+  color: #fff;
+  font-weight: 500;
 }
 .banner-title {
-  font-size: 44rpx;
-  font-weight: 700;
+  font-size: 40rpx;
+  font-weight: 800;
   color: #fff;
+  text-shadow: 0 2rpx 8rpx rgba(0, 0, 0, 0.3);
+  line-height: 1.2;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
 }
 .banner-subtitle {
-  font-size: 26rpx;
-  color: rgba(255, 255, 255, 0.9);
+  font-size: 24rpx;
+  color: rgba(255, 255, 255, 0.85);
+  text-shadow: 0 1rpx 4rpx rgba(0, 0, 0, 0.3);
+}
+.banner-dots {
+  display: flex;
+  justify-content: center;
+  gap: 8rpx;
+  margin-top: 12rpx;
+}
+.banner-dot {
+  width: 12rpx;
+  height: 12rpx;
+  border-radius: 50%;
+  background: rgba(30, 200, 168, 0.25);
+  transition: all 0.3s ease;
+}
+.banner-dot.active {
+  width: 32rpx;
+  border-radius: 100rpx;
+  background: #1EC8A8;
 }
 .shortcuts {
   display: flex;
