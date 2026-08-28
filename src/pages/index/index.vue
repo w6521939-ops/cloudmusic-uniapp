@@ -17,9 +17,6 @@
           <view class="banner-item" :style="banner.image ? { backgroundImage: `url(${banner.image})`, backgroundSize: 'cover', backgroundPosition: 'center' } : { background: banner.gradient }">
             <view class="banner-overlay" :style="{ background: banner.image ? 'linear-gradient(0deg, rgba(0,0,0,0.75) 0%, rgba(0,0,0,0.3) 50%, rgba(0,0,0,0) 100%)' : 'linear-gradient(0deg, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0) 60%)' }"></view>
             <view class="banner-content">
-              <view class="banner-tag" :style="{ background: idx === currentBanner ? 'rgba(30, 200, 168, 0.9)' : 'rgba(255,255,255,0.25)' }">
-                <text>{{ banner.tag }}</text>
-              </view>
               <text class="banner-title">{{ banner.title }}</text>
               <text class="banner-subtitle">{{ banner.subtitle }}</text>
             </view>
@@ -233,17 +230,6 @@ onPullDownRefresh(async () => {
   flex-direction: column;
   gap: 12rpx;
   z-index: 2;
-}
-.banner-tag {
-  align-self: flex-start;
-  padding: 6rpx 20rpx;
-  border-radius: 100rpx;
-  margin-bottom: 4rpx;
-}
-.banner-tag text {
-  font-size: 20rpx;
-  color: #fff;
-  font-weight: 500;
 }
 .banner-title {
   font-size: 40rpx;
